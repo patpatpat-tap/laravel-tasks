@@ -22,17 +22,18 @@ use Illuminate\Support\Facades\Validator;
 /**
     * Show Task Dashboard
     */
-Route::get('/', function () {
-    Log::info("Get /");
-    $startTime = microtime(true);
-    // Simple cache-aside logic
-    if (Cache::has('tasks')) {
-        $data = Cache::get('tasks');
-    } else {
-        $data = Task::orderBy('created_at', 'asc')->get();
-        Cache::add('tasks', $data);
+Route::get('/', function (Request $request) {
+    $query = $request->input('q');
+    $tasks = \App\Models\Task::query();
+    if ($query) {
+        $tasks->where(function($q) use ($query) {
+            $q->where('name', 'like', "%$query%")
+              ->orWhere('description', 'like', "%$query%")
+              ->orWhere('image', 'like', "%$query%") ;
+        });
     }
-    return view('tasks', ['tasks' => $data, 'elapsed' => microtime(true) - $startTime]);
+    $data = $tasks->orderBy('created_at', 'asc')->get();
+    return view('tasks', ['tasks' => $data, 'search' => $query]);
 });
 
 /**
