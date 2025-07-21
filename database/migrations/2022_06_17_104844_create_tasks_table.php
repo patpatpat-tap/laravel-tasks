@@ -18,6 +18,7 @@ class CreateTasksTable extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('image')->nullable();
+            $table->string('faction')->nullable();
             $table->timestamps();
         });
     }
