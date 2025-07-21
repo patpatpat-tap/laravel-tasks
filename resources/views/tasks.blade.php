@@ -21,7 +21,7 @@
                                 @foreach($tasks as $task)
                                     <div class="col-md-4 mb-4">
                                         <div class="card h-100 shadow-sm border-danger">
-                                            <img src="{{ asset('images/' . $task->image) }}" class="card-img-top transformer-img" alt="{{ $task->name }}" style="height:250px; object-fit:cover; background:#222; cursor:pointer;" data-name="{{ $task->name }}" data-description="{{ $task->description }}" data-faction="{{ $factions[$task->image] ?? 'Unknown' }}">
+                                            <img src="{{ asset('images/' . $task->image) }}" class="card-img-top transformer-img" alt="{{ $task->name }}" style="height:250px; object-fit:cover; background:#222; cursor:pointer;" data-name="{{ $task->name }}" data-description="{{ $task->description }}" data-faction="{{ $task->faction ?? 'Unknown' }}">
                                             <div class="card-body">
                                                 <h5 class="card-title" style="font-weight:bold; color:#d32f2f;">{{ $task->name }}</h5>
                                                 <p class="card-text">{{ $task->description }}</p>
@@ -82,31 +82,6 @@
     }
 </style>
 @endpush
-
-@php
-// Faction placeholder logic (since we can't use DB):
-$factions = [
-    'optimus_prime.jpg' => 'Autobot',
-    'bumblebee.jpg' => 'Autobot',
-    'ironhide.jpg' => 'Autobot',
-    'ratchet.jpg' => 'Autobot',
-    'jazz.jpg' => 'Autobot',
-    'wheeljack.jpg' => 'Autobot',
-    'prowl.jpg' => 'Autobot',
-    'grimlock.jpg' => 'Autobot',
-    'hot_rod.jpg' => 'Autobot',
-    'springer.jpg' => 'Autobot',
-    'ultra_magnus.jpg' => 'Autobot',
-    'megatron.jpg' => 'Decepticon',
-    'starscream.jpg' => 'Decepticon',
-    'soundwave.jpg' => 'Decepticon',
-    'shockwave.jpg' => 'Decepticon',
-    'blitzwing.jpg' => 'Decepticon',
-    'devastator.jpg' => 'Decepticon',
-    'skywarp.jpg' => 'Decepticon',
-    'thundercracker.jpg' => 'Decepticon',
-];
-@endphp
 
 @push('scripts')
 <script>
