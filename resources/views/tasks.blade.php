@@ -21,7 +21,7 @@
                                 @foreach($tasks as $task)
                                     <div class="col-md-4 mb-4">
                                         <div class="card h-100 shadow-sm border-danger">
-                                            <img src="{{ asset('images/' . $task->image) }}" class="card-img-top transformer-img" alt="{{ $task->name }}" style="height:250px; object-fit:cover; background:#222; cursor:pointer;" data-name="{{ $task->name }}" data-description="{{ $task->description }}" data-faction="{{ $task->faction ?? 'Unknown' }}">
+                                            <img src="{{ asset('images/' . $task->image) }}" class="card-img-top transformer-img" alt="{{ $task->name }}" style="height:250px; object-fit:cover; background:#222; cursor:pointer;" data-name="{{ $task->name }}" data-description="{{ $task->description }}" data-faction="{{ $task->faction ?? 'Unknown' }}" data-faction-description="{{ $task->faction_description ?? '' }}" data-vehicle-type="{{ $task->vehicle_type ?? '' }}">
                                             <div class="card-body">
                                                 <h5 class="card-title" style="font-weight:bold; color:#d32f2f;">{{ $task->name }}</h5>
                                                 <p class="card-text">{{ $task->description }}</p>
@@ -46,6 +46,8 @@
             <h3 id="modalName"></h3>
             <p id="modalDescription"></p>
             <p><strong>Faction:</strong> <span id="modalFaction"></span></p>
+            <p id="modalFactionDescription" style="font-style:italic;"></p>
+            <p><strong>Vehicle Type:</strong> <span id="modalVehicleType"></span></p>
         </div>
     </div>
 @endsection
@@ -91,12 +93,16 @@ document.addEventListener('DOMContentLoaded', function() {
     var modalName = document.getElementById('modalName');
     var modalDescription = document.getElementById('modalDescription');
     var modalFaction = document.getElementById('modalFaction');
+    var modalFactionDescription = document.getElementById('modalFactionDescription');
+    var modalVehicleType = document.getElementById('modalVehicleType');
     var imgs = document.querySelectorAll('.transformer-img');
     imgs.forEach(function(img) {
         img.addEventListener('click', function() {
             modalName.textContent = img.getAttribute('data-name');
             modalDescription.textContent = img.getAttribute('data-description');
             modalFaction.textContent = img.getAttribute('data-faction');
+            modalFactionDescription.textContent = img.getAttribute('data-faction-description');
+            modalVehicleType.textContent = img.getAttribute('data-vehicle-type');
             modal.style.display = 'block';
         });
     });

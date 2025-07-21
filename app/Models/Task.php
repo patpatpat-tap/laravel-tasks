@@ -14,5 +14,7 @@ class Task extends Model
         'description',
         'image',
         'faction',
+        'faction_description',
+        'vehicle_type',
     ];
 }
